@@ -1,0 +1,10 @@
+-> pageSize and PageNumber
+
+-> Sorting by any one field
+
+from frontend we get information for sorting like pageNumber and pageSize using link
+
+-> http://localhost:9090/posts?pageSize=5&pageNo=2&sortBy=title
+
+
+** We have a interface in springboot PagingAndSortingRepository<> which extend CrudRepository for sorting and pagination

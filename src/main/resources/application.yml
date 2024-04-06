@@ -1,0 +1,34 @@
+#mongodb properties
+#spring.data.mongodb.host=localhost
+#spring.data.mongodb.port=27017
+#spring.data.mongodb.database=blogapplication
+
+server:
+  port: 9090
+
+# db configuration
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/blog_application
+    username: root
+    password: root
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: shivamsorout8814@gmail.com
+    password: bfeo xkkw jtco jjjm
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
