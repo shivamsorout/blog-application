@@ -30,27 +30,13 @@ public class EmailController {
         addMailInSet(emailSet);
 
         Set<String> newEmails = new HashSet<>();
-//        newEmails.add("deepak.n@pearlcons.com");
-//        newEmails.add("hardik.thapa@thewitslab.com");
-//        newEmails.add("arti.singh@esolglobal.com");  //replied
-//        newEmails.add("Vivek.opulentsoft@gmail.com");
-//        newEmails.add("talent.acquisition@yirontechnologies.com");
-//        newEmails.add("ayusingh@deloitte.com");
-//        newEmails.add("recruit@vsourcetalent.com");
-//        newEmails.add("shweta@snakescript.com");
-//        newEmails.add("career.cybrain@gmail.com");
-//        newEmails.add("manish22sinha@gmail.com");
-//        newEmails.add("rakesh.ramesh@apexon.com");
-//        newEmails.add("career@destinyhrgroup.com ");
-//        newEmails.add("dinesh.skyron.hr@gmail.com");
-//        newEmails.add("ayusingh@deloitte.com");
-//        newEmails.add("neha.pandey@bluethink.in");
-//        newEmails.add("priyanka@peoplestaff.in");
-        newEmails.add("arun.kumar3@landmarkgroup.com");
-        newEmails.add("neha.pandey@bluethink.in");
-        newEmails.add("komal@arohatechnologies.com");
+        //newEmails.add("chandru.c@hcl.com"); // HCLTech Company
+        newEmails.add("aisha@bigshyft.com");
+        newEmails.add("careers@spericorn.com");
 
         /*
+
+        tel:+919354314601 : hasStudioz call resume sent
         Ritika.jain@zeno.health
         jaiswalkamakshi1997@gmail.com
         poorva.shri@paramountpioneers.com
@@ -101,6 +87,27 @@ public class EmailController {
     }
 
     private static void addMailInSet(Set<String> emailSet) {
+        emailSet.add("deepak.n@pearlcons.com");
+        emailSet.add("hardik.thapa@thewitslab.com");
+        emailSet.add("arti.singh@esolglobal.com");  //replied
+        emailSet.add("Vivek.opulentsoft@gmail.com");
+        emailSet.add("talent.acquisition@yirontechnologies.com");
+        emailSet.add("ayusingh@deloitte.com");
+        emailSet.add("recruit@vsourcetalent.com");
+        emailSet.add("shweta@snakescript.com");
+        emailSet.add("career.cybrain@gmail.com");
+        emailSet.add("manish22sinha@gmail.com");
+        emailSet.add("rakesh.ramesh@apexon.com");
+        emailSet.add("career@destinyhrgroup.com ");
+        emailSet.add("dinesh.skyron.hr@gmail.com");
+        emailSet.add("ayusingh@deloitte.com");
+        emailSet.add("neha.pandey@bluethink.in");
+        emailSet.add("priyanka@peoplestaff.in");
+        emailSet.add("arun.kumar3@landmarkgroup.com");
+        emailSet.add("neha.pandey@bluethink.in");
+        emailSet.add("komal@arohatechnologies.com");
+        emailSet.add("hr@clarity-medical.com");
+        emailSet.add("hr@cybernative.in");
         emailSet.add("sailee.gaonkar@ril.com");
         emailSet.add("tanya@praxists.co.in");
         emailSet.add("bhupendrakumar.jain@gmail.com");

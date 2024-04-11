@@ -5,6 +5,7 @@ import com.shivam.blogapplication.entities.Post;
 import com.shivam.blogapplication.entities.User;
 import com.shivam.blogapplication.exceptions.ResourceNotFoundException;
 import com.shivam.blogapplication.payloads.PostDto;
+import com.shivam.blogapplication.payloads.PostResponse;
 import com.shivam.blogapplication.repositories.CategoryRepo;
 import com.shivam.blogapplication.repositories.PostRepo;
 import com.shivam.blogapplication.repositories.UserRepo;
@@ -68,12 +69,20 @@ public class PostServiceImpl implements PostService {
         return  postDtos;
     }
     @Override
-    public List<PostDto> getAllPostForPagination(Integer pageNumber, Integer pageSize){
+    public PostResponse getAllPostForPagination(Integer pageNumber, Integer pageSize){
         Pageable p = PageRequest.of(pageNumber, pageSize);
         Page<Post> postPage = postRepo.findAll(p);
         List<Post> posts = postPage.getContent();
         List<PostDto> postDtos = posts.stream().map(post -> modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
-        return  postDtos;
+
+        PostResponse postResponse = new PostResponse();
+        postResponse.setContent(postDtos);
+        postResponse.setPageNumber(postPage.getNumber());
+        postResponse.setPageSize(postPage.getSize());
+        postResponse.setTotalElement(postPage.getTotalElements());
+        postResponse.setTotalPage(postPage.getTotalPages());
+        postResponse.setLastPage(postPage.isLast());
+        return  postResponse;
     }
 
 
