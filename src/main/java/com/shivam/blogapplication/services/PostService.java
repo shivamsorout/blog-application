@@ -1,5 +1,6 @@
 package com.shivam.blogapplication.services;
 import com.shivam.blogapplication.payloads.PostDto;
+import com.shivam.blogapplication.payloads.PostResponse;
 import jakarta.persistence.criteria.CriteriaBuilder;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public interface PostService {
     List<PostDto> getAllPost();
 
     //get all post for pagination
-    List<PostDto> getAllPostForPagination(Integer pageNumber, Integer pageSize);
+    PostResponse getAllPostForPagination(Integer pageNumber, Integer pageSize, String sortBy, String sortDirection);
     //get Single Post
     PostDto getPostById(Integer postId);
     //get all post by category
