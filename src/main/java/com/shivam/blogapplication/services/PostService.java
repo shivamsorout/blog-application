@@ -18,7 +18,7 @@ public interface PostService {
     List<PostDto> getAllPost();
 
     //get all post for pagination
-    PostResponse getAllPostForPagination(Integer pageNumber, Integer pageSize);
+    PostResponse getAllPostForPagination(Integer pageNumber, Integer pageSize, String sortBy, String sortDirection);
     //get Single Post
     PostDto getPostById(Integer postId);
     //get all post by category

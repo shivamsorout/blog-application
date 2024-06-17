@@ -1,5 +1,8 @@
 package com.shivam.blogapplication.controllers;
 
+import com.shivam.blogapplication.services.BarcodeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +25,12 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 public class BarcodeController {
+    @Autowired
+    private BarcodeService barcodeService;
 
     @GetMapping(value = "/barcode/gs1-code128", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> generateGS1Code128Barcode(@RequestParam String data,
@@ -43,6 +49,24 @@ public class BarcodeController {
         } catch (IOException | WriterException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error generating barcode: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/generate-barcode/generate")
+    public ResponseEntity<byte[]> generateBarcode(@RequestParam String text) {
+        try {
+            byte[] barcodeImage = barcodeService.generateCode128Barcode(text);
+
+            // Set headers
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.IMAGE_PNG);
+            headers.setContentDispositionFormData("attachment", "barcode.png");
+
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(barcodeImage);
+        } catch (WriterException | IOException e) {
+            return ResponseEntity.status(500).build();
         }
     }
 
@@ -106,11 +130,6 @@ public class BarcodeController {
         byte[] barcodeBytes = baos.toByteArray();
         return Base64.getEncoder().encodeToString(barcodeBytes);
     }
-
-
-
-
-
 
     public static void decodeAndSaveImage(String base64Image, String filePath) throws IOException {
         // Decode Base64 string to byte array

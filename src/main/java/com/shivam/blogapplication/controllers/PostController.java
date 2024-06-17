@@ -41,8 +41,11 @@ public class PostController {
     @GetMapping("/posts/pagination")
     public ResponseEntity<PostResponse> getAllPostForPagination(
             @RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
-            @RequestParam(value = "pageSize", defaultValue = "5q", required = false) Integer pageSize){
-        PostResponse postResponse = postService.getAllPostForPagination(pageNumber, pageSize);
+            @RequestParam(value = "pageSize", defaultValue = "5", required = false) Integer pageSize,
+            @RequestParam(value = "sortBy", defaultValue = "title", required = false) String sortBy,
+            @RequestParam(value = "sortDirection", defaultValue = "asc", required = false) String sortDirection
+    ){
+        PostResponse postResponse = postService.getAllPostForPagination(pageNumber, pageSize, sortBy, sortDirection);
         return new ResponseEntity<PostResponse>(postResponse, HttpStatus.OK);
     }
     @GetMapping("/category/{categoryId}/posts")
@@ -55,9 +58,17 @@ public class PostController {
         PostDto postDtoById = postService.updatePost(postDto,postId);
         return new ResponseEntity<>(postDtoById,HttpStatus.OK);
     }
+    //delete
     @DeleteMapping("/{postId}")
     public ResponseEntity<PostDto> deletePost(@PathVariable Integer postId){
         postService.deletePost(postId);
         return new ResponseEntity(new ApiResponse("Post has succesfully Deleted", true),HttpStatus.OK);
+    }
+
+    //search
+    @GetMapping("/posts/search/{keywords}")
+    public ResponseEntity<List<PostDto>> searchPostByKeywords(@PathVariable ("keywords") String keywords){
+        List<PostDto> postDtos = postService.searchPostBYKeyword(keywords);
+        return new ResponseEntity<>(postDtos, HttpStatus.OK);
     }
 }

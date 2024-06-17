@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -69,12 +70,16 @@ public class PostServiceImpl implements PostService {
         return  postDtos;
     }
     @Override
-    public PostResponse getAllPostForPagination(Integer pageNumber, Integer pageSize){
-        Pageable p = PageRequest.of(pageNumber, pageSize);
+    public PostResponse getAllPostForPagination(Integer pageNumber, Integer pageSize, String sortBy, String sortDirection){
+        Sort sort = null;
+        if(sortDirection.equals("asc")){
+            sort = Sort.by(sortBy).ascending();
+        }else sort = Sort.by(sortBy).descending();
+
+        Pageable p = PageRequest.of(pageNumber, pageSize, sort);
         Page<Post> postPage = postRepo.findAll(p);
         List<Post> posts = postPage.getContent();
         List<PostDto> postDtos = posts.stream().map(post -> modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
-
         PostResponse postResponse = new PostResponse();
         postResponse.setContent(postDtos);
         postResponse.setPageNumber(postPage.getNumber());
@@ -82,7 +87,7 @@ public class PostServiceImpl implements PostService {
         postResponse.setTotalElement(postPage.getTotalElements());
         postResponse.setTotalPage(postPage.getTotalPages());
         postResponse.setLastPage(postPage.isLast());
-        return  postResponse;
+        return postResponse;
     }
 
 
@@ -107,6 +112,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostDto> searchPostBYKeyword(String keyword) {
-        return null;
+        List<Post> posts = postRepo.findByTitleContaining(keyword);
+        List<PostDto> postDtos = posts.stream().map(post -> modelMapper.map(post,PostDto.class)).collect(Collectors.toList());
+        return postDtos;
     }
 }
